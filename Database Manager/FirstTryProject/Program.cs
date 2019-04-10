@@ -12,7 +12,7 @@ namespace FirstTryProject
                               "\n\"1\" : Create database" +
                               "\n\"2\" : Put valid dummy data into database" +
                               "\n\"3\" : Put a invalid dummy data into database" +
-                              "\n\"3\" : Empty database");
+                              "\n\"4\" : Empty database");
             do
             {
                 try
@@ -53,11 +53,11 @@ namespace FirstTryProject
                 {
                     Console.WriteLine("Invalid database request" +
                                       "\nWant to review exeption?" +
-                                      "\ny/n");
+                                      "\ny/N");
                     string answer = Console.ReadLine();
                     if(answer == "y" || answer == "Y")
                         Console.WriteLine(e);
-                    else if (answer == "n" || answer == "N"){}
+                    else if (answer == "n" || answer == "N" || answer == ""){}
                     else
                     {
                         Console.WriteLine("Invalid command, try again");

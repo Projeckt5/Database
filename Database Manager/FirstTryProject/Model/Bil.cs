@@ -12,11 +12,17 @@ namespace FirstTryProject.Model
         public string Nummerplade { get; set; }
         public string Billede { get; set; }
         public bool Anhænger { get; set; }
+        [Required]
         public string Tilstand { get; set; }
+        [Required]
         public bool Reserveret { get; set; }
+        [Required]
         public int Vægt { get; set; }
+        [Required]
         public int Højde { get; set; }
+        [Required]
         public int Bredte { get; set; }
+        [Required]
         public string Type { get; set; }
         public string Område { get; set; }
         

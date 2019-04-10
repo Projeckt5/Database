@@ -9,7 +9,7 @@ namespace FirstTryProject.Model
     {
         [Key]
         public DateTime Dato { get; set; }
-        
+        [Required]
         public Bil Bil { get; set; }
     }
 }

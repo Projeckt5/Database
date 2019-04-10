@@ -9,7 +9,9 @@ namespace FirstTryProject.Model
     {
         [Key]
         public string Kontaktinformation { get; set; }
+        [Required]
         public string Navn { get; set; }
+        [Required]
         public string Kørekortnummer { get; set; }
         
         public List<Bil> Biler { get; set; }

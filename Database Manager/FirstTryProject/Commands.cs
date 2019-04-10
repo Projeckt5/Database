@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using FirstTryProject.Data;
 using FirstTryProject.Model;
 using FirstTryProject.Migrations;
+using Microsoft.EntityFrameworkCore.Internal;
 
 namespace FirstTryProject
 {
@@ -17,7 +18,6 @@ namespace FirstTryProject
         {
             using (var db = new AppDbContext())
             {
-                db.Database.EnsureDeleted();
                 return db.Database.EnsureCreated();
             }
         }
@@ -171,7 +171,47 @@ namespace FirstTryProject
 
         public static void EmptyDatabase()
         {
-            throw new NotImplementedException();
+            using (var db = new AppDbContext())
+            {
+                foreach (var VARIABLE in db.Biler)
+                {
+                    db.Biler.Remove(VARIABLE);
+                }
+
+                foreach (var VARIABLE in db.KanUdlejesDatoer)
+                {
+                    db.KanUdlejesDatoer.Remove(VARIABLE);
+                }
+
+                foreach (var VARIABLE in db.Lejere)
+                {
+                    db.Lejere.Remove(VARIABLE);
+                }
+
+                foreach (var VARIABLE in db.LejerBeskeder)
+                {
+                    db.LejerBeskeder.Remove(VARIABLE);
+                }
+
+                foreach (var VARIABLE in db.Udlejere)
+                {
+                    db.Udlejere.Remove(VARIABLE);
+                }
+
+                foreach (var VARIABLE in db.UdlejerBeskeder)
+                {
+                    db.UdlejerBeskeder.Remove(VARIABLE);
+                }
+
+                foreach (var VARIABLE in db.UdlejedeDage)
+                {
+                    db.UdlejedeDage.Remove(VARIABLE);
+                }
+
+
+                db.SaveChanges();
+
+            }
         }
     }
 }

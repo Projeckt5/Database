@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 using FirstTryProject.Model;
 using Microsoft.EntityFrameworkCore;
@@ -8,12 +9,29 @@ namespace FirstTryProject.Data
 {
     public class AppDbContext : DbContext
     {
+        protected string InUse;
+        protected string MowsLocale = "Data Source=LAPTOP-SV4Q19DE;Initial Catalog=LokalTestDB;Integrated Security=True";
+        protected string AzureDB = "Server=tcp:mowinckel.database.windows.net,1433;Initial Catalog = CarnGo; Persist Security Info=False;User ID = ProjectDB@mowinckel;Password=Vores1.sødedatabase;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout = 30";
+
+
+
+
+
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            //public string MowsLocale = "Data Source=LAPTOP-SV4Q19DE;Initial Catalog=LokalTestDB;Integrated Security=True";
-            //public string AzureDB = "Server=tcp:mowinckel.database.windows.net,1433;Initial Catalog = CarnGo; Persist Security Info=False;User ID = ProjectDB@mowinckel;Password=Vores1.sødedatabase;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout = 30";
-            optionsBuilder.UseSqlServer("Data Source=LAPTOP-SV4Q19DE;Initial Catalog=LokalTestDB;Integrated Security=True");
+#if DEBUG
+            InUse = MowsLocale;
+#endif
+
+#if !DEBUG
+            InUse = AzureDB;
+#endif
+
+
+            optionsBuilder.UseSqlServer(InUse);
+
         }
 
         public DbSet<Lejer> Lejere { get; set; }
@@ -23,6 +41,13 @@ namespace FirstTryProject.Data
         public DbSet<Bil> Biler { get; set; }
         public DbSet<UdlejetDag> UdlejedeDage { get; set; }
         public DbSet<KanUdlejesDato> KanUdlejesDatoer { get; set; }
+
+        //Reposetory pattern
+
+
+
+
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
