@@ -24,6 +24,7 @@ namespace FirstTryProject.Model
         public List<UdlejetDag> UdlejetDage { get; set; }
 
         public Lejer Lejer { get; set; }
+        [Required]
         public Udlejer Udlejer { get; set; }
     }
     

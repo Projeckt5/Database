@@ -9,7 +9,7 @@ namespace FirstTryProject.Model
     {
         [Key]
         public DateTime Dato { get; set; }
-        public string LejerId { get; set; }
+        public Lejer Lejer { get; set; }
 
         public Bil Bil { get; set; }
     }

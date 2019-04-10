@@ -12,7 +12,7 @@ namespace FirstTryProject.Model
         public string Kontaktinformation { get; set; }
         public bool ErBlevetSet { get; set; }
         public string Kommentar { get; set; }
-        public string BilId { get; set; }
+        public Bil Bil { get; set; }
         public string UdlejetStartSlut { get; set; }
 
         public Lejer Lejer { get; set; }
