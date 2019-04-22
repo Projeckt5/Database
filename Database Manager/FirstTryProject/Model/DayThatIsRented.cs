@@ -5,11 +5,13 @@ using System.Text;
 
 namespace FirstTryProject.Model
 {
-    public class KanUdlejesDato
+    public class DayThatIsRented 
     {
         [Key]
-        public DateTime Dato { get; set; }
+        public DateTime Date { get; set; }
         [Required]
-        public Bil Bil { get; set; }
+        public CarRenter CarRenter { get; set; }
+        [Required]
+        public Car Car { get; set; }
     }
 }

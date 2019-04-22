@@ -18,6 +18,11 @@ namespace FirstTryProject
         {
             using (var db = new AppDbContext())
             {
+#if DEBUG
+                db.Database.EnsureDeleted();
+#endif
+
+
                 return db.Database.EnsureCreated();
             }
         }
@@ -27,114 +32,114 @@ namespace FirstTryProject
             using (var db = new AppDbContext())
             {
 
-                var udlejerBesked = new UdlejerBesked()
+                var udlejerBesked = new CarOwnerMessage()
                 {
-                    ErBlevetAfvist = false,
-                    ErBlevetSet = true,
-                    Kommentar = "Det kan du godt, skriv på min Email",
-                    UdlejetStartSlut = "2019;8,6;2019;8;10"
+                    HaveBeenRejected = false,
+                    HaveBeenSeen = true,
+                    Commentary = "Det kan du godt, skriv på min Email",
+                    RentedFromTo = "2019;8,6;2019;8;10"
                 };
 
-                var lejerBesked = new LejerBesked()
+                var lejerBesked = new CarRenterMessage()
                 {
-                    Kontaktinformation = "40091812",
-                    ErBlevetSet = false,
-                    Kommentar = "Må jeg leje din Toyota",
-                    UdlejetStartSlut = "2019;8,6;2019;8;10"
+                    ContactInfo = "40091812",
+                    HaveBeenSeen = false,
+                    Commentary = "Må jeg leje din Toyota",
+                    RentedFromTo = "2019;8,6;2019;8;10"
 
                 };
 
-                var lejer = new Lejer()
+                var lejer = new CarRenter()
                 {
-                    Kontaktinformation = "48781920",
-                    Navn = "Kasten",
-                    Kørekortnummer = "12938171",
-                    Biler = new List<Bil>(),
-                    LejerBeskeder = new List<LejerBesked>(),
+                    ContactInfo = "48781920",
+                    Name = "Kasten",
+                    DrivingLicenceNumber = "12938171",
+                    Cars = new List<Car>(),
+                    CarRenterMessages = new List<CarRenterMessage>(),
                 };
 
-                var udlejer = new Udlejer
+                var udlejer = new CarOwner
                 {
-                    Kontaktinformation = "MyEmail@Host.com",
-                    Navn = "Svend Jokumsen",
-                    Kørekortnummer = "2",
-                    Registreringsnummer = "53210",
-                    Biler = new List<Bil>(),
-                    UdlejerBeskeder = new List<UdlejerBesked>(),
+                    KontactInfo = "MyEmail@Host.com",
+                    Name = "Svend Jokumsen",
+                    DrivingLicenceNumber = "2",
+                    CarRegistrationNumber = "53210",
+                    Cars = new List<Car>(),
+                    CarOwnerMessages = new List<CarOwnerMessage>(),
                 };
-                var bil = new Bil
+                var bil = new Car
                 {
-                    Nummerplade = "AB123421",
-                    Billede = "asgmsa72u23p0i9isadfj2u2n7efmj",
-                    Anhænger = false,
-                    Tilstand = "Havde en ridse til i foreste højre dør",
-                    Reserveret = false,
-                    Vægt = 420,
-                    Højde = 170,
-                    Bredte = 230,
+                    LicenceplateNumber = "AB123421",
+                    Picture = "asgmsa72u23p0i9isadfj2u2n7efmj",
+                    HaveTowbar = false,
+                    Condition = "Havde en ridse til i foreste højre dør",
+                    IsReserved = false,
+                    Weight = 420,
+                    Hight = 170,
+                    Width = 230,
                     Type = "Varevogn",
-                    Område = "Aarhus",
-                    KanUdlejesDatoer = new List<KanUdlejesDato>(),
-                    UdlejetDage = new List<UdlejetDag>(),
+                    Area = "Aarhus",
+                    PossibleToRentDays = new List<PossibleToRentDay>(),
+                    DaysThatIsRented = new List<DayThatIsRented>(),
                 };
-                List<KanUdlejesDato> kanUdlejesDatoer = new List<KanUdlejesDato>();
+                List<PossibleToRentDay> PossibleToRentDayer = new List<PossibleToRentDay>();
                 for (int i = 0; i < 20; i++)
-                {
-                    var kanUdlejesDato = new KanUdlejesDato()
+                { 
+                    var PossibleToRentDay = new PossibleToRentDay()
                     {
-                        Dato = new DateTime(2019, 4, 8+i),
-                        Bil = bil,
+                        Date = new DateTime(2019, 4, 8+i),
+                        Car = bil,
                     };
-                    kanUdlejesDatoer.Add(kanUdlejesDato);
+                    PossibleToRentDayer.Add(PossibleToRentDay);
                 }
-                List<UdlejetDag> udlejetDage = new List<UdlejetDag>();
+                List<DayThatIsRented> udlejetDage = new List<DayThatIsRented>();
                 for (int i = 0; i < 5; i++)
                 {
-                    var udlejetDag = new UdlejetDag()
+                    var udlejetDag = new DayThatIsRented()
                     {
-                        Dato = new DateTime(2019, 4, 8 + i),
-                        Bil = bil,
-                        Lejer = lejer,
+                        Date = new DateTime(2019, 4, 8 + i),
+                        Car = bil,
+                        CarRenter = lejer,
                     };
 
                     udlejetDage.Add(udlejetDag);
                 }
 
-                udlejerBesked.Bil = bil;
-                udlejerBesked.Udlejer = udlejer;
+                udlejerBesked.Car = bil;
+                udlejerBesked.CarOwner = udlejer;
 
-                lejerBesked.Bil = bil;
-                lejerBesked.Lejer = lejer;
+                lejerBesked.Car = bil;
+                lejerBesked.CarRenter = lejer;
 
-                lejer.Biler.Add(bil);
-                lejer.LejerBeskeder.Add(lejerBesked);
+                lejer.Cars.Add(bil);
+                lejer.CarRenterMessages.Add(lejerBesked);
 
-                udlejer.Biler.Add(bil);
-                udlejer.UdlejerBeskeder.Add(udlejerBesked);
+                udlejer.Cars.Add(bil);
+                udlejer.CarOwnerMessages.Add(udlejerBesked);
 
-                bil.Udlejer = udlejer;
-                bil.Lejer = lejer;
+                bil.CarOwner = udlejer;
+                bil.CarRenter = lejer;
 
 
 
                 foreach (var VARIABLE in udlejetDage)
                 {
-                    bil.UdlejetDage.Add(VARIABLE);
-                    db.UdlejedeDage.Add(VARIABLE);
+                    
+                    bil.DaysThatIsRented.Add(VARIABLE);
+                    //db.AddDayThatIsRented(VARIABLE);
                 }
-                foreach (var VARIABLE in kanUdlejesDatoer)
+                foreach (var VARIABLE in PossibleToRentDayer)
                 {
-                    bil.KanUdlejesDatoer.Add(VARIABLE);
-                    db.KanUdlejesDatoer.Add(VARIABLE);
+                    bil.PossibleToRentDays.Add(VARIABLE);
+                    //db.AddPossibleToRentDay(VARIABLE);
                 }
-                db.UdlejerBeskeder.Add(udlejerBesked);
-                db.LejerBeskeder.Add(lejerBesked);
-                db.Lejere.Add(lejer);
-                db.Udlejere.Add(udlejer);
-                db.Biler.Add(bil);
 
+                //db.AddCarOwnerMessage(udlejerBesked);
+                //db.AddCarRenterMessage(lejerBesked);
+                //db.AddCarRenter(lejer);
+                //db.AddCarOwner(udlejer);
+                //db.AddCar(bil);
 
-                db.SaveChanges();
             }
         }
 
@@ -142,22 +147,21 @@ namespace FirstTryProject
         {
             using (var db = new AppDbContext())
             {
-                var bil = new Bil
+                var bil = new Car
                 {
-                    Nummerplade = "AB123421",
-                    Billede = "asgmsa72u23p0i9isadfj2u2n7efmj",
-                    Anhænger = false,
-                    Tilstand = "Havde en ridse til i foreste højre dør",
-                    Reserveret = false,
-                    Vægt = 420,
-                    Højde = 170,
-                    Bredte = 230,
+                    LicenceplateNumber = "AB123421",
+                    Picture = "asgmsa72u23p0i9isadfj2u2n7efmj",
+                    HaveTowbar = false,
+                    Condition = "Havde en ridse til i foreste højre dør",
+                    IsReserved = false,
+                    Weight = 420,
+                    Hight = 170,
+                    Width = 230,
                     Type = "Varevogn",
-                    Område = "Aarhus",
+                    Area = "Aarhus",
                 };
-                db.Biler.Add(bil);
+                //db.AddCar(bil);
 
-                db.SaveChanges();
 
             }
         }
@@ -173,39 +177,39 @@ namespace FirstTryProject
         {
             using (var db = new AppDbContext())
             {
-                foreach (var VARIABLE in db.Biler)
+                //foreach (var VARIABLE in db.Cars)
                 {
-                    db.Biler.Remove(VARIABLE);
+                    //db.Cars.Remove(VARIABLE);
                 }
 
-                foreach (var VARIABLE in db.KanUdlejesDatoer)
+                //foreach (var VARIABLE in db.PossibleToRentDays)
                 {
-                    db.KanUdlejesDatoer.Remove(VARIABLE);
+                    //db.PossibleToRentDays.Remove(VARIABLE);
                 }
 
-                foreach (var VARIABLE in db.Lejere)
+                //foreach (var VARIABLE in db.CarRenters)
                 {
-                    db.Lejere.Remove(VARIABLE);
+                    //db.CarRenters.Remove(VARIABLE);
                 }
 
-                foreach (var VARIABLE in db.LejerBeskeder)
+                //foreach (var VARIABLE in db.CarRenterMessages)
                 {
-                    db.LejerBeskeder.Remove(VARIABLE);
+                    //db.CarRenterMessages.Remove(VARIABLE);
                 }
 
-                foreach (var VARIABLE in db.Udlejere)
+                //foreach (var VARIABLE in db.CarOwners)
                 {
-                    db.Udlejere.Remove(VARIABLE);
+                    //db.CarOwners.Remove(VARIABLE);
                 }
 
-                foreach (var VARIABLE in db.UdlejerBeskeder)
+                //foreach (var VARIABLE in db.CarOwnerMessages)
                 {
-                    db.UdlejerBeskeder.Remove(VARIABLE);
+                    //db.CarOwnerMessages.Remove(VARIABLE);
                 }
 
-                foreach (var VARIABLE in db.UdlejedeDage)
+                //foreach (var VARIABLE in db.DaysThatIsRented)
                 {
-                    db.UdlejedeDage.Remove(VARIABLE);
+                    //db.DaysThatIsRented.Remove(VARIABLE);
                 }
 
 

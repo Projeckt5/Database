@@ -65,13 +65,13 @@ namespace FirstTryProject.Migrations
                 constraints: table => { table.PrimaryKey("PK_UdlejedeDage", x => x.Dato); });
 
             migrationBuilder.CreateTable(
-                name: "KanUdlejesDato",
+                name: "PossibleToRentDay",
                 columns: table => new
                 {
                     Dato = table.Column<DateTime>(nullable: false)
                         .Annotation("Sqlserver:Autoincrement", false),
                 },
-                constraints: table => { table.PrimaryKey("PK_KanUdlejesDato", x => x.Dato); });
+                constraints: table => { table.PrimaryKey("PK_PossibleToRentDay", x => x.Dato); });
         
         }
 
@@ -81,7 +81,7 @@ namespace FirstTryProject.Migrations
                 name: "UdlejedeDage");
 
             migrationBuilder.DropTable(
-                name: "KanUdlejesDato");
+                name: "PossibleToRentDay");
 
             migrationBuilder.DropTable(
                 name: "Bil");

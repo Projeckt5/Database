@@ -28,14 +28,14 @@ namespace FirstTryProject.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "KanUdlejesDatoer",
+                name: "PossibleToRentDayer",
                 columns: table => new
                 {
                     Dato = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_KanUdlejesDatoer", x => x.Dato);
+                    table.PrimaryKey("PK_PossibleToRentDayer", x => x.Dato);
                 });
 
             migrationBuilder.CreateTable(
@@ -84,7 +84,7 @@ namespace FirstTryProject.Migrations
                 name: "Biler");
 
             migrationBuilder.DropTable(
-                name: "KanUdlejesDatoer");
+                name: "PossibleToRentDayer");
 
             migrationBuilder.DropTable(
                 name: "Lejere");
